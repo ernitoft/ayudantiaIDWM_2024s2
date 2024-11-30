@@ -25,7 +25,6 @@ export class EbookService {
           `${this.baseUrl}/ebook?${queryParams}`
         )
       );
-
       return Promise.resolve(response);
     } catch (error) {
       console.log('Error en getAllEbooks', error);

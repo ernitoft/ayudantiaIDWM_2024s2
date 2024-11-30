@@ -1,15 +1,44 @@
-import { Component } from '@angular/core';
-import { ButtonComponent } from '../../components/button/button.component';
-import { Button2Component } from '../../components/button2/button2.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
+import { EbookService } from '../../services/ebook.service';
+import { ResponseAPIGetAll } from '../../interfaces/ResponseAPI_GetAll';
+import { HttpClientModule } from '@angular/common/http';
+import { CardComponent } from '../../components/card/card.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ebook-page-home',
   standalone: true,
-  imports: [ButtonComponent, Button2Component],
+  imports: [HttpClientModule, CardComponent, CommonModule],
+  providers: [EbookService],
   templateUrl: './ebooks-home.component.html',
   styleUrl: './ebooks-home.component.css'
 })
-export class EbooksHomeComponent {
+export class EbooksHomeComponent implements OnInit{
 
+  ebooksArray: ResponseAPIGetAll[] = [];
+  private ebookService = inject(EbookService);
+
+  ngOnInit(): void {
+    this.obtenerEbooks();
+  }
+
+  obtenerEbooks() {
+    console.log('Obteniendo ebooks...');
+    this.ebookService.getAllEbooks('Fiction')
+      .then((ebooks) => {
+
+        for (let i = 0; i < ebooks.length; i++) {
+
+          console.log('Añadiendo:', ebooks[i]);
+          this.ebooksArray.push(ebooks[i]);
+        }
+
+        console.log('Ebooks obtenidos:', this.ebooksArray);
+      })
+      .catch((error) => {
+        console.log('Error al obtener ebooks:', error);
+      });
+
+      return;
+  }
 }

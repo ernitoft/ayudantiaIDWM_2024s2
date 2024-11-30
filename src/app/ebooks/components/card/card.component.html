@@ -1,0 +1,16 @@
+<div href="" class="block max-w-sm p-6 border border-gray-200 rounded-lg shadow hover:bg-gray-100 "
+  [ngClass]="{'bg-green-400': ebook.price<= 9, 'hover:bg-green-100': ebook.price<=9}">
+
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> {{ebook.title}} | {{ebook.author}}
+  </h5>
+  <p *ngIf="ebook.price == 9" class="font-normal text-gray-700 dark:text-gray-400"> ${{ebook.price}},
+    {{ebook.isAvailable}}
+
+    <a class="font-normal text-gray-700 dark:text-gray-400" > {{ebook.genre}}</a>
+
+  </p>
+  <div>
+    <button *ngIf="ebook.price <= 9" class="px-4 py-2 mt-2 text-sm font-semibold text-white uppercase transition-colors duration-200 transform bg-green-500 rounded-lg hover:bg-green-400 focus:outline-none focus:bg-green-400">Buy</button>
+  </div>
+
+</div>
