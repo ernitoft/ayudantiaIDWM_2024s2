@@ -1,10 +1,12 @@
-<div class="flex gap-5 justify-center items-center w-screen h-screen">
+<div class="flex-row gap-5 justify-center items-center w-screen h-screen">
 
-  <div class="px-5" *ngFor="let ebook of ebooksArray">
-
-    <div>
-      <ebook-card [ebook]="ebook" ></ebook-card>
+  <div class="px-5 flex justify-center items-center gap-5" *ngFor="let ebook of ebooksArray">
+    <div class="my-3">
+      <ebook-card [ebook]="ebook"></ebook-card>
     </div>
+  </div>
 
+  <div class="mb-10">
+    <ebook-form></ebook-form>
   </div>
 </div>

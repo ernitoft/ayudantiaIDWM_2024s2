@@ -1,0 +1,81 @@
+<form class="max-w-sm mx-auto" [formGroup]="forms" (ngSubmit)="onSubmit()">
+  <div class="mb-5">
+    <!-- Title -->
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
+    <input type="text"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 "
+      required
+      formControlName="Title"
+      />
+
+    <div *ngIf="titleInvalid">
+      <a class="text-red-500 text-sm font-medium"> Campo "Título" Requerido</a>
+    </div>
+
+  </div>
+
+  <!-- Author -->
+  <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor</label>
+    <input type="text"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 "
+      required
+      formControlName="Author"
+      />
+
+      <div *ngIf="authorInvalid">
+        <a class="text-red-500 text-sm font-medium"> Campo "Autor" Requerido</a>
+      </div>
+
+  </div>
+
+  <!-- Genre -->
+  <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Género</label>
+    <input type="text"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 "
+      required
+      formControlName="Genre"
+      />
+      <div *ngIf="genreInvalid">
+        <a class="text-red-500 text-sm font-medium"> Campo "Género" Requerido</a>
+      </div>
+  </div>
+
+
+  <!-- Format -->
+  <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Formato</label>
+    <input type="text"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 "
+      required
+      formControlName="Format"
+      />
+      <div *ngIf="formatInvalid">
+        <a class="text-red-500 text-sm font-medium"> Campo "Formato" Requerido</a>
+      </div>
+  </div>
+
+
+  <!-- Price -->
+  <div class="mb-5">
+    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+    <input type="number"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 "
+      required
+      formControlName="Price"
+      />
+      <div *ngIf="priceInvalid">
+        <a class="text-red-500 text-sm font-medium"> Campo "Precio" Requerido</a>
+      </div>
+
+  </div>
+
+  <button type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Enviar</button>
+</form>
+
+<!-- Errores -->
+<div *ngFor="let error of errorMessage" class="bg-red-500 rounded-lg mb-5 flex justify-center items-center">
+  <a *ngIf="error" class="text-white text-sm font-medium">{{error}}</a>
+</div>

@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ResponseAPIGetAll } from '../../interfaces/ResponseAPI_GetAll';
 import { CommonModule } from '@angular/common';
+import { EbookService } from '../../services/ebook.service';
+import { Ebook } from '../../interfaces/Ebook';
 
 @Component({
   selector: 'ebook-card',
@@ -10,6 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './card.component.css'
 })
 export class CardComponent {
+
 
   @Input() ebook: ResponseAPIGetAll
 
@@ -25,4 +28,6 @@ export class CardComponent {
       stock: 0
     }
   }
+
+
 }

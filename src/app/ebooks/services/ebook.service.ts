@@ -36,15 +36,31 @@ export class EbookService {
 
   async createEbook(ebook: Ebook): Promise<ResponseAPIGetAll> {
     try {
+
+      console.log('Ebook en service:', ebook);
+
+
       const response = await firstValueFrom(
         this.http.post<ResponseAPIGetAll>(`${this.baseUrl}/ebook`, ebook)
       );
+      console.log('Ebook en service, Response:', response);
       return Promise.resolve(response);
     } catch (error) {
-      console.log('Error en createEbook', error);
-      let e = error as HttpErrorResponse;
-      this.errors.push(e.message);
+
+      console.error('Error en createEbook', error);
+
+      if (error instanceof HttpErrorResponse) {
+        const errorMessage =
+          typeof error.error === 'string' ? error.error : error.message;
+        this.errors.push(errorMessage);
+      }
+
       return Promise.reject(error);
     }
   }
+
+  getErrors(): string[] {
+    return this.errors;
+  }
+
 }
