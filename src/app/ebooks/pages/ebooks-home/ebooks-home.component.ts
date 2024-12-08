@@ -5,11 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CardComponent } from '../../components/card/card.component';
 import { CommonModule } from '@angular/common';
 import { FormComponent } from '../../components/form/form.component';
+import { TicketsListComponent } from '../../../tickets/components/tickets-list/tickets-list.component';
 
 @Component({
   selector: 'ebook-page-home',
   standalone: true,
-  imports: [HttpClientModule, CardComponent, CommonModule, FormComponent],
+  imports: [HttpClientModule, CardComponent, CommonModule, FormComponent, TicketsListComponent],
   providers: [EbookService],
   templateUrl: './ebooks-home.component.html',
   styleUrl: './ebooks-home.component.css'
@@ -18,6 +19,7 @@ export class EbooksHomeComponent implements OnInit{
 
   ebooksArray: ResponseAPIGetAll[] = [];
   private ebookService = inject(EbookService);
+
 
   ngOnInit(): void {
     this.obtenerEbooks();
@@ -42,4 +44,6 @@ export class EbooksHomeComponent implements OnInit{
 
       return;
   }
+
+
 }

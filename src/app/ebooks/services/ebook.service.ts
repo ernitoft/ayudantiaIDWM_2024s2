@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ResponseAPIGetAll } from '../interfaces/ResponseAPI_GetAll';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Ebook } from '../interfaces/Ebook';
 
 @Injectable({
