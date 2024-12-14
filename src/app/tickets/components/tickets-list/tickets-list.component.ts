@@ -12,37 +12,40 @@ import { CommonModule } from '@angular/common';
   styleUrl: './tickets-list.component.css'
 })
 export class TicketsListComponent implements OnInit{
-  tickets: any[] = [];
-  private ticketsService = inject(TicketsService);
+
+  tickets : any[] = []
+  TicketsService = inject(TicketsService);
 
   ngOnInit(): void {
     this.loadTickets();
   }
 
+  loadTickets(){
+    this.TicketsService.getTickets().subscribe((data)=> {
+      console.log('Data:', data);
+
+      this.tickets = data.tickets;
+
+      console.log('Tickets:', this.tickets);
+    })
+  }
+
   addTicket(){
     const newTicket = {
       id: String(this.tickets.length + 1),
-      title: 'Ticket ' + (this.tickets.length + 1),
-      description: 'Description of ticket ' + (this.tickets.length + 1)
+      title: 'Ticket ' + String(this.tickets.length + 1),
+      description: 'Description ' + String(this.tickets.length + 1)
     }
 
-    console.log('Ticket añadido: ', newTicket);
+    console.log('New Ticket:', newTicket);
 
-    this.ticketsService.createTicket(newTicket).subscribe(()=>{
-      //Cargar los tickets, la lista actualizada
+    this.TicketsService.createTicket(newTicket).subscribe((data)=>{
       this.loadTickets();
+
+      console.log('Lista actualizada :D');
     })
+
   }
-
-  loadTickets(){
-    this.ticketsService.getTickets().subscribe((data) => {
-      console.log('Data del LoadTickets: ', data);
-      this.tickets = data.tickets;
-
-      console.log('Tickets en Lista: ', this.tickets);
-    })
-  }
-
 
 
 }

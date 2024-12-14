@@ -1,28 +1,39 @@
 import { Routes } from '@angular/router';
+import { authGuardGuard } from './users/guards/auth-guard.guard';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     loadComponent: () =>
-      import('./ebooks/pages/ebooks-home/ebooks-home.component').then(
-        (m) => m.EbooksHomeComponent
+      import('../app/users/pages/login-page/login-page.component').then(
+        (m) => m.LoginPageComponent
       ),
+    pathMatch: 'full',
   },
   {
     path: 'users',
     loadComponent: () =>
-      import('./ebooks/pages/users/users.component').then(
-        (m) => m.UsersComponent
+      import('../app/users/pages/users-home/users-home.component').then(
+        (m) => m.UsersHomeComponent
       ),
-  }
-  ,
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'home',
+    canActivate: [authGuardGuard],
+    children: [
+      {
+        path: 'list',
+        loadComponent: () =>
+          import(
+            '../app/users/pages/users-list/users-list.component'
+          ).then((m) => m.UsersListComponent),
+      },
+      {
+        path: '',
+        redirectTo: 'list',
+        pathMatch: 'full',
+      }
+    ],
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: '',
   },
 ];
