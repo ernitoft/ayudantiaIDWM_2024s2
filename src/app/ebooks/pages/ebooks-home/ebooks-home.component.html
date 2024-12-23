@@ -1,6 +1,12 @@
 <div class="flex-row gap-5 justify-center items-center w-screen h-screen">
 
-  <div class="px-5 flex justify-center items-center gap-5" *ngFor="let ebook of ebooksArray">
+  <div class="justify-center items-center p-5">
+    <input type="text" class="w-96 h-10 border-2 border-gray-200 rounded-lg p-2" placeholder="Buscar..."
+          [(ngModel)]="searchQuery" (input)="filterEbooks()"
+    />
+  </div>
+
+  <div class="px-5 flex justify-center items-center gap-5" *ngFor="let ebook of filteredEbooksArray">
     <div class="my-3">
       <ebook-card [ebook]="ebook"></ebook-card>
     </div>
@@ -10,7 +16,8 @@
     <ebook-form></ebook-form>
   </div>
 
-  <ticket-tickets-list></ticket-tickets-list>
+  <images-imgdrop/>
 
+  <!-- <ticket-tickets-list></ticket-tickets-list> -->
 
 </div>

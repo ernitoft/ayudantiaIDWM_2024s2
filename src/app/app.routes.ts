@@ -13,8 +13,8 @@ export const routes: Routes = [
   {
     path: 'users',
     loadComponent: () =>
-      import('../app/users/pages/users-home/users-home.component').then(
-        (m) => m.UsersHomeComponent
+      import('../app/ebooks/pages/ebooks-home/ebooks-home.component').then(
+        (m) => m.EbooksHomeComponent
       ),
     canActivate: [authGuardGuard],
     children: [
