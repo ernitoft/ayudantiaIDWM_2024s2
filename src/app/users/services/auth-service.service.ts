@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ResponseAPI } from '../interfaces/interfaces';
-import { firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +13,14 @@ export class AuthServiceService {
   private http = inject(HttpClient);
 
 
-  async login(form: any): Promise<ResponseAPI>{
-    try{
-      const response = await firstValueFrom(this.http.post<ResponseAPI>(this.baseURL+'login', form));
-      return Promise.resolve(response);
-    }
-    catch(error){
-      console.log('Error en login', error);
-      let e = error as HttpErrorResponse;
-      this.errors.push(e.message || 'Error desconocido');
-      return Promise.reject(this.errors);
-    }
+  login(form: any): Observable<ResponseAPI> {
+    return this.http.post<ResponseAPI>(this.baseURL + 'login', form).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.log('Error en login', error);
+        this.errors.push(error.message);
+        return throwError(() => new Error('Error en login'));
+      })
+    );
   }
 
 

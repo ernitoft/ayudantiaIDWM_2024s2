@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AuthServiceService } from '../../services/auth-service.service';
 import { LocalStorageServiceService } from '../../services/local-storage-service.service';
 import { Router } from '@angular/router';
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'users-loginform',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [ReactiveFormsModule, CommonModule],
   providers: [AuthServiceService, LocalStorageServiceService],
   templateUrl: './loginform.component.html',
   styleUrl: './loginform.component.css',
@@ -48,7 +47,7 @@ export class LoginformComponent {
   }
 
 
-  async login (){
+  login() {
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach((control) => {
         control.markAsTouched();
@@ -56,28 +55,25 @@ export class LoginformComponent {
       return;
     }
 
-    try{
-      const response = await this.authService.login(this.form.value);
+    this.authService.login(this.form.value).subscribe({
+      next: (response) => {
+        if (response.error == false) {
+          if (response.data.token) {
+            console.log('Usuario logueado:', this.localStorageService.getVariable('user'));
 
-
-      if (response.error == false){
-        if (response.data.token){
-          this.localStorageService.setVariable('token', response.data.token);
-          this.localStorageService.setVariable('user', response.data.user);
-          console.log('Usuario logueado:', this.localStorageService.getVariable('user'));
-
-          this.router.navigate(['users/list']);
+            this.router.navigate(['users/list']);
+          }
+        } else {
+          console.log('Error en login:', response.message);
+          this.error = true;
+          this.errorMessage.push(response.message);
         }
-      } else {
-        console.log('Error en login:', response.message);
+      },
+      error: (error) => {
         this.error = true;
-        this.errorMessage.push(response.message);
+        this.errorMessage.push(error);
       }
-    } catch (error: any) {
-      this.error = true;
-      this.errorMessage.push(error);
-
-    }
+    });
   }
 
 }

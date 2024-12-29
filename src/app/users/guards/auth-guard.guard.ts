@@ -8,8 +8,9 @@ export const authGuardGuard: CanActivateFn = (route, state) => {
   const localService = inject(LocalStorageServiceService);
 
   if (localService.getVariable('token')){
-    console.log('Usuario logueado:', localService.getVariable('user'));
-    if (localService.getVariable('user').role_id == 1) {
+    const userString = localService.getVariable('user');
+    const user = userString ? JSON.parse(userString) : null;
+    if (user && user.role_id == 1) {
       console.log('Usuario logueado 2:', localService.getVariable('user'));
       return true;
     }

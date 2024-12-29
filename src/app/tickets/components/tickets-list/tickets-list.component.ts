@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'ticket-tickets-list',
   standalone: true,
-  imports: [HttpClientModule, CommonModule],
+  imports: [CommonModule],
   providers: [TicketsService],
   templateUrl: './tickets-list.component.html',
   styleUrl: './tickets-list.component.css'
